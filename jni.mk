@@ -26,18 +26,20 @@
 ifndef __include_jni_mk__
 __include_jni_mk__ := 1
 
+JNI_MK_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+
 ifeq ($(HOST),)
-    $(error [HOST] Missing value
+    $(error [HOST] Missing value)
 endif
 
 ifneq ($(words $(HOST)),1)
-    $(error [HOST] Value cannot have whitspaces
+    $(error [HOST] Value cannot have whitspaces)
 endif
 
-ifeq ($(wildcard $(HOST)/include),)
+ifeq ($(wildcard $(JNI_MK_DIR)$(HOST)/include),)
     $(error [HOST] Unsupported host: $(HOST))
 endif
 
-INCLUDE_DIRS += $(HOST)/
+INCLUDE_DIRS += $(JNI_MK_DIR)$(HOST)/include
 
 endif # __include_jni_mk__
